@@ -2,12 +2,11 @@ import data from '@emoji-mart/data';
 import { init, SearchIndex } from 'emoji-mart';
 import { useEffect, useState } from "react";
 import _ from 'lodash';
-import { useRouter } from "next/router";
 
 export default function Backbone() {
 
   const [storyInputValue, setStoryInputValue] = useState("");
-  const router = useRouter();
+  const [storyOutputEmojis, setStoryOutputEmojis] = useState([]);
 
 
   function findMatchingEmoji(searchValue) {
@@ -20,25 +19,20 @@ export default function Backbone() {
 
       //if results length 0 fetch word api similar words and test those, select first match
       if (results.length > 0) {
-        const randomSingleResult = _.sample(results);
-        console.log(randomSingleResult);
+        const randomSingleEmojiFromArray = _.sample(results);
+        console.log(randomSingleEmojiFromArray);
         console.log(results);
 
-        let storyOutputEmojis = [];
-        if(sessionStorage.getItem("emojiArray")) {
-          storyOutputEmojis = JSON.parse(sessionStorage.getItem("emojiArray"));
-        }
-        storyOutputEmojis.push(randomSingleResult);
-        sessionStorage.setItem("emojiArray", JSON.stringify(storyOutputEmojis));
+        //https://stackoverflow.com/questions/67309672/how-to-prevent-react-state-overwrites-due-to-asynchronous-code-and-websocket-rac
+        setStoryOutputEmojis(prevState => [...prevState, randomSingleEmojiFromArray]);
       }
-
     }
-
     search(searchValue);
   }
 
   function generateStory(event) {
     event.preventDefault();
+    setStoryOutputEmojis([]);
 
     const splitUpInputStory = storyInputValue.split(" ");
     const filteredStoryArray = splitUpInputStory.filter((string) => string !== "");
@@ -48,12 +42,11 @@ export default function Backbone() {
       findMatchingEmoji(filteredStoryArray[i]);
     }
 
-    router.push("/result");
   }
-
 
   return(
     <>
+      <div>{storyOutputEmojis}</div>
       <form onSubmit={generateStory}>
         <input onChange={(e) => setStoryInputValue(e.target.value)} type="text" id="storyinput" name="storyinput"></input>
         <button>Go!</button>
