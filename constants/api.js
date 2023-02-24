@@ -1,0 +1,1 @@
+export const DATAMUSE_BASE_URL = "https://api.datamuse.com";
