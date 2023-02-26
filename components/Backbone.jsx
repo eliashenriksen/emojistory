@@ -1,3 +1,4 @@
+//Remember to remove console logs on cleanup
 import data from '@emoji-mart/data';
 import { init, SearchIndex } from 'emoji-mart';
 import { useState } from "react";
@@ -66,7 +67,7 @@ export default function Backbone() {
         findSimilarWord();
       }
     }
-    //Add override for prepositions here (seperate override file import?).
+    //Add override for prepositions, pronouns etc. here (seperate override file import?).
     search(searchValue);
   }
 
