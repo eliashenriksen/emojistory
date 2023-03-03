@@ -111,7 +111,7 @@ export default function Backbone() {
     //Filtering out empty strings.
     //Also remove strings containing the word "the". If more words need to be ommited in the future, add them here.
     //If a lot of words need to be ommited in the future add some better way to solve that here like with the word overrides.
-    const filteredStoryArray = splitUpInputStory.filter((string) => string !== "" && string !== "the");
+    const filteredStoryArray = splitUpInputStory.filter((string) => string !== "" && string !== "the" && string !== "just");
     console.log("filteredstoryarray >", filteredStoryArray);
 
     for (let i = 0; i < filteredStoryArray.length; i++) {

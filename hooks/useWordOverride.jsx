@@ -1,14 +1,12 @@
 import { overrides } from "@/public/overrides";
-import _ from 'lodash';
-
-//Prepositions> in,at,on, by, beside, under, below, over, above, across, through, to, into, towards, onto, from, since, for, ago, before, past, till, untill
-//Similars> (in,at,by,beside,across,through,to,into,towards,since,for,past,till,untill)(under,below)(on,over,above,onto)(from,before)
+import _, { over } from 'lodash';
 
 export default function useWordOverride(wordToCheck) {
 
   let returnEmojiHolder = "";
 
   switch (wordToCheck) {
+//Prepositions
     //fall throughs
     case "in":
     case "at":
@@ -24,12 +22,14 @@ export default function useWordOverride(wordToCheck) {
     case "past":
     case "till":
     case "untill":
+    case "there":
       returnEmojiHolder = _.sample(overrides.in);
       break;
 
     //fall throughs
     case "under":
     case "below":
+    case "here":
       returnEmojiHolder = _.sample(overrides.under);
       break;
 
@@ -48,6 +48,42 @@ export default function useWordOverride(wordToCheck) {
       returnEmojiHolder = _.sample(overrides.from);
       break
 
+//Verbs
+    case "going":
+      returnEmojiHolder = _.sample(overrides.going);
+      break
+
+    case "driving":
+      returnEmojiHolder = _.sample(overrides.driving);
+      break
+
+    case "flying":
+      returnEmojiHolder = _.sample(overrides.flying);
+      break
+
+    case "riding":
+      returnEmojiHolder = _.sample(overrides.riding);
+      break
+
+    case "are":
+      returnEmojiHolder = _.sample(overrides.are);
+      break
+
+//Conjunctions
+    case "and":
+      returnEmojiHolder = _.sample(overrides.and);
+      break
+
+//Pronouns
+    case "i":
+      returnEmojiHolder = _.sample(overrides.i);
+      break
+    
+    case "we":
+      returnEmojiHolder = _.sample(overrides.we);
+      break
+
+//Default Return
     default:
       return wordToCheck;
   }
